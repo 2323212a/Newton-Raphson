@@ -1,43 +1,68 @@
 ﻿using System;
 using System.Windows.Forms;
-using NCalc; // Asegúrate de haberlo instalado por NuGet
 
 namespace Newton_Raphson
 {
     public partial class Tabla : Form
     {
-        private string funcionOriginal;
-        private double x0;
-        private double errorTolerado;
+        private readonly string funcionOriginal;
+        private readonly double x0;
+        private readonly double errorTolerado;
+
+        private Label labelFuncion;
+        private Label labelX0;
+        private Label labelError;
 
         public Tabla(string funcion, double x0, double errorTolerado)
         {
-            InitializeComponent(); // siempre va primero
-
-            this.funcionOriginal = NormalizarFuncion(funcion);
+            InitializeComponent();
+            this.funcionOriginal = funcion;
             this.x0 = x0;
             this.errorTolerado = errorTolerado;
 
-            InicializarTabla(); // asegurarte de que se llame aquí
-            EjecutarNewtonRaphson();
+            AgregarEtiquetasInformativas();
+            InicializarTabla();
+            EjecutarMetodo();
         }
 
-        // ✅ Normaliza potencias Unicode (x⁴ → x^4)
-        private string NormalizarFuncion(string funcion)
+        private void AgregarEtiquetasInformativas()
         {
-            return funcion
-                .Replace("⁴", "^4")
-                .Replace("³", "^3")
-                .Replace("²", "^2")
-                .Replace("¹", "^1")
-                .Replace("⁰", "^0")
-                .Replace("–", "-")
-                .Replace("−", "-");
+            // Etiqueta de Función
+            labelFuncion = new Label
+            {
+                Text = $"Función: {funcionOriginal}",
+                AutoSize = true,
+                Font = new System.Drawing.Font("Segoe UI", 10),
+                Location = new System.Drawing.Point(30, 5)
+            };
+
+            // Etiqueta de X₀
+            labelX0 = new Label
+            {
+                Text = $"X₀: {x0}",
+                AutoSize = true,
+                Font = new System.Drawing.Font("Segoe UI", 10),
+                Location = new System.Drawing.Point(200, 5)
+            };
+
+            // Etiqueta de Error
+            labelError = new Label
+            {
+                Text = $"Error tolerado: {errorTolerado}%",
+                AutoSize = true,
+                Font = new System.Drawing.Font("Segoe UI", 10),
+                Location = new System.Drawing.Point(400, 5)
+            };
+
+            // Agregar al formulario
+            this.Controls.Add(labelFuncion);
+            this.Controls.Add(labelX0);
+            this.Controls.Add(labelError);
         }
 
-        // ✅ Inicializa columnas del DataGrid
         private void InicializarTabla()
         {
+            // Limpiar columnas y preparar encabezados
             dataGridNewton.Columns.Clear();
 
             dataGridNewton.Columns.Add("Iteracion", "i");
@@ -51,110 +76,50 @@ namespace Newton_Raphson
             dataGridNewton.Rows.Clear();
         }
 
-        // ✅ Método Newton-Raphson principal
-        private void EjecutarNewtonRaphson()
-        {
-            int i = 0;
-            double xi = x0;
-            double error = 100;
-
-            while (error > errorTolerado && i < 100)
-            {
-                double fx = EvaluarFuncion(funcionOriginal, xi);
-                string derivada = DerivarFuncion(funcionOriginal);
-                double fpx = EvaluarFuncion(derivada, xi);
-
-                if (fpx == 0)
-                {
-                    MessageBox.Show("La derivada se hizo cero en la iteración " + i + ". No se puede continuar.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    break;
-                }
-
-                double xi1 = xi - (fx / fpx);
-                double fx1 = EvaluarFuncion(funcionOriginal, xi1);
-                error = Math.Abs((xi1 - xi) / xi1) * 100;
-
-                dataGridNewton.Rows.Add(
-                    i,
-                    xi.ToString("F6"),
-                    fx.ToString("F6"),
-                    fpx.ToString("F6"),
-                    xi1.ToString("F6"),
-                    fx1.ToString("F6"),
-                    error.ToString("F6")
-                );
-
-                xi = xi1;
-                i++;
-            }
-
-            if (i >= 100)
-            {
-                MessageBox.Show("El método no converge después de 100 iteraciones.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-        }
-
-        // ✅ Evaluación segura usando NCalc con parámetro
-        private double EvaluarFuncion(string funcion, double x)
+        private void EjecutarMetodo()
         {
             try
             {
-                var expr = new Expression(funcion);
-                expr.Parameters["x"] = x;
-                return Convert.ToDouble(expr.Evaluate());
+                var resultados = NewtonRaphsonSolver.Ejecutar(funcionOriginal, x0, errorTolerado);
+
+                foreach (var r in resultados)
+                {
+                    dataGridNewton.Rows.Add(
+                        r.Iteracion,
+                        r.Xi.ToString("F6"),
+                        r.Fxi.ToString("F6"),
+                        r.Fpxi.ToString("F6"),
+                        r.Xi1.ToString("F6"),
+                        r.Fx1.ToString("F6"),
+                        r.Error.ToString("F6")
+                    );
+                }
+
+                if (resultados.Count > 0)
+                {
+                    var final = resultados[resultados.Count - 1];
+
+                    MessageBox.Show(
+                        string.Format(
+                            "Raíz aproximada encontrada:\n\nXi ≈ {0:F6}\nError ≈ {1:F6}%",
+                            final.Xi1,
+                            final.Error
+                        ),
+                        "Resultado final",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Information
+                    );
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error al evaluar la función:\n{ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return 0;
+                MessageBox.Show("Error durante el cálculo:\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        // ✅ Derivada manual básica para polinomios
-        private string DerivarFuncion(string funcion)
+        private void btnCerrar_Click(object sender, EventArgs e)
         {
-            string derivada = "";
-            funcion = funcion.Replace(" ", "").Replace("-", "+-");
-            var terminos = funcion.Split('+');
-
-            foreach (var term in terminos)
-            {
-                if (string.IsNullOrWhiteSpace(term)) continue;
-
-                if (term.Contains("x^"))
-                {
-                    var partes = term.Split(new[] { "x^" }, StringSplitOptions.None);
-                    if (!double.TryParse(partes[0], out double coef)) coef = 1;
-                    if (!int.TryParse(partes[1], out int exp)) continue;
-
-                    double nuevoCoef = coef * exp;
-                    int nuevoExp = exp - 1;
-
-                    if (nuevoExp == 1)
-                        derivada += $"{nuevoCoef}*x+";
-                    else if (nuevoExp == 0)
-                        derivada += $"{nuevoCoef}+";
-                    else
-                        derivada += $"{nuevoCoef}*x^{nuevoExp}+";
-                }
-                else if (term.Contains("x"))
-                {
-                    string coefStr = term.Replace("x", "");
-                    double coef = string.IsNullOrEmpty(coefStr) || coefStr == "+" ? 1 :
-                                  coefStr == "-" ? -1 : double.Parse(coefStr);
-                    derivada += $"{coef}+";
-                }
-            }
-
-            if (derivada.EndsWith("+"))
-                derivada = derivada.Substring(0, derivada.Length - 1);
-
-            return derivada;
-        }
-
-        private void dataGridNewton_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
+            Close();
         }
     }
 }

@@ -2,170 +2,155 @@
 {
     partial class Datos_extra
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
-            {
                 components.Dispose();
-            }
+
             base.Dispose(disposing);
         }
 
         #region Windows Form Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
-            this.btninsertarxo = new System.Windows.Forms.Button();
-            this.btnerror = new System.Windows.Forms.Button();
-            this.btneditar = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.txtXi = new System.Windows.Forms.TextBox();
+            this.btnInsertarX0 = new System.Windows.Forms.Button();
+            this.btnBorrar = new System.Windows.Forms.Button();
+            this.btnEditar = new System.Windows.Forms.Button();
+            this.btnRegresar = new System.Windows.Forms.Button();
+            this.txtX0 = new System.Windows.Forms.TextBox();
             this.txtError = new System.Windows.Forms.TextBox();
-            this.Xo = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
+            this.lblX0 = new System.Windows.Forms.Label();
+            this.lblError = new System.Windows.Forms.Label();
             this.btnSiguiente = new System.Windows.Forms.Button();
-            this.paneldatosextra = new System.Windows.Forms.Panel();
+            this.panelDatosExtra = new System.Windows.Forms.Panel();
             this.SuspendLayout();
             // 
-            // btninsertarxo
+            // btnInsertarX0
             // 
-            this.btninsertarxo.Location = new System.Drawing.Point(79, 139);
-            this.btninsertarxo.Name = "btninsertarxo";
-            this.btninsertarxo.Size = new System.Drawing.Size(75, 23);
-            this.btninsertarxo.TabIndex = 0;
-            this.btninsertarxo.Text = "Insertar";
-            this.btninsertarxo.UseVisualStyleBackColor = true;
-            this.btninsertarxo.Click += new System.EventHandler(this.btninsertarxo_Click);
+            this.btnInsertarX0.Location = new System.Drawing.Point(60, 140);
+            this.btnInsertarX0.Name = "btnInsertarX0";
+            this.btnInsertarX0.Size = new System.Drawing.Size(90, 30);
+            this.btnInsertarX0.TabIndex = 0;
+            this.btnInsertarX0.Text = "Insertar";
+            this.btnInsertarX0.UseVisualStyleBackColor = true;
+            this.btnInsertarX0.Click += new System.EventHandler(this.btninsertarxo_Click);
             // 
-            // btnerror
+            // btnBorrar
             // 
-            this.btnerror.Location = new System.Drawing.Point(276, 140);
-            this.btnerror.Name = "btnerror";
-            this.btnerror.Size = new System.Drawing.Size(75, 23);
-            this.btnerror.TabIndex = 1;
-            this.btnerror.Text = "Borrar";
-            this.btnerror.UseVisualStyleBackColor = true;
-            this.btnerror.Click += new System.EventHandler(this.btnerror_Click);
+            this.btnBorrar.Location = new System.Drawing.Point(270, 140);
+            this.btnBorrar.Name = "btnBorrar";
+            this.btnBorrar.Size = new System.Drawing.Size(90, 30);
+            this.btnBorrar.TabIndex = 1;
+            this.btnBorrar.Text = "Borrar";
+            this.btnBorrar.UseVisualStyleBackColor = true;
+            this.btnBorrar.Click += new System.EventHandler(this.btnerror_Click);
             // 
-            // btneditar
+            // btnEditar
             // 
-            this.btneditar.Location = new System.Drawing.Point(163, 397);
-            this.btneditar.Name = "btneditar";
-            this.btneditar.Size = new System.Drawing.Size(117, 41);
-            this.btneditar.TabIndex = 2;
-            this.btneditar.Text = "Editar valores";
-            this.btneditar.UseVisualStyleBackColor = true;
-            this.btneditar.Click += new System.EventHandler(this.btneditar_Click);
+            this.btnEditar.Location = new System.Drawing.Point(160, 400);
+            this.btnEditar.Name = "btnEditar";
+            this.btnEditar.Size = new System.Drawing.Size(120, 35);
+            this.btnEditar.TabIndex = 2;
+            this.btnEditar.Text = "Editar valores";
+            this.btnEditar.UseVisualStyleBackColor = true;
+            this.btnEditar.Click += new System.EventHandler(this.btneditar_Click);
             // 
-            // button4
+            // btnRegresar
             // 
-            this.button4.Location = new System.Drawing.Point(12, 397);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(98, 41);
-            this.button4.TabIndex = 3;
-            this.button4.Text = "Regresar";
-            this.button4.UseMnemonic = false;
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.btnRegresar.Location = new System.Drawing.Point(20, 400);
+            this.btnRegresar.Name = "btnRegresar";
+            this.btnRegresar.Size = new System.Drawing.Size(110, 35);
+            this.btnRegresar.TabIndex = 3;
+            this.btnRegresar.Text = "Regresar";
+            this.btnRegresar.UseVisualStyleBackColor = true;
+            this.btnRegresar.Click += new System.EventHandler(this.button4_Click);
             // 
-            // txtXi
+            // txtX0
             // 
-            this.txtXi.Location = new System.Drawing.Point(90, 92);
-            this.txtXi.Name = "txtXi";
-            this.txtXi.Size = new System.Drawing.Size(100, 22);
-            this.txtXi.TabIndex = 4;
-            this.txtXi.TextChanged += new System.EventHandler(this.txtXi_TextChanged);
+            this.txtX0.Location = new System.Drawing.Point(90, 90);
+            this.txtX0.Name = "txtX0";
+            this.txtX0.Size = new System.Drawing.Size(100, 22);
+            this.txtX0.TabIndex = 4;
             // 
             // txtError
             // 
-            this.txtError.Location = new System.Drawing.Point(286, 92);
+            this.txtError.Location = new System.Drawing.Point(290, 90);
             this.txtError.Name = "txtError";
             this.txtError.Size = new System.Drawing.Size(100, 22);
             this.txtError.TabIndex = 5;
-            this.txtError.TextChanged += new System.EventHandler(this.txtError_TextChanged);
             // 
-            // Xo
+            // lblX0
             // 
-            this.Xo.AutoSize = true;
-            this.Xo.Location = new System.Drawing.Point(58, 95);
-            this.Xo.Name = "Xo";
-            this.Xo.Size = new System.Drawing.Size(26, 16);
-            this.Xo.TabIndex = 6;
-            this.Xo.Text = "Xo:";
+            this.lblX0.AutoSize = true;
+            this.lblX0.Location = new System.Drawing.Point(55, 93);
+            this.lblX0.Name = "lblX0";
+            this.lblX0.Size = new System.Drawing.Size(29, 16);
+            this.lblX0.TabIndex = 6;
+            this.lblX0.Text = "X₀:";
             // 
-            // label1
+            // lblError
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(241, 92);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(39, 16);
-            this.label1.TabIndex = 7;
-            this.label1.Text = "Error:";
+            this.lblError.AutoSize = true;
+            this.lblError.Location = new System.Drawing.Point(240, 93);
+            this.lblError.Name = "lblError";
+            this.lblError.Size = new System.Drawing.Size(44, 16);
+            this.lblError.TabIndex = 7;
+            this.lblError.Text = "Error:";
             // 
             // btnSiguiente
             // 
-            this.btnSiguiente.Location = new System.Drawing.Point(428, 139);
+            this.btnSiguiente.Location = new System.Drawing.Point(420, 140);
             this.btnSiguiente.Name = "btnSiguiente";
-            this.btnSiguiente.Size = new System.Drawing.Size(75, 23);
+            this.btnSiguiente.Size = new System.Drawing.Size(90, 30);
             this.btnSiguiente.TabIndex = 8;
             this.btnSiguiente.Text = "Siguiente";
             this.btnSiguiente.UseVisualStyleBackColor = true;
             this.btnSiguiente.Click += new System.EventHandler(this.btnSiguiente_Click);
             // 
-            // paneldatosextra
+            // panelDatosExtra
             // 
-            this.paneldatosextra.Location = new System.Drawing.Point(80, 206);
-            this.paneldatosextra.Name = "paneldatosextra";
-            this.paneldatosextra.Size = new System.Drawing.Size(270, 79);
-            this.paneldatosextra.TabIndex = 9;
-            this.paneldatosextra.Paint += new System.Windows.Forms.PaintEventHandler(this.paneldatosextra_Paint);
+            this.panelDatosExtra.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panelDatosExtra.Location = new System.Drawing.Point(60, 200);
+            this.panelDatosExtra.Name = "panelDatosExtra";
+            this.panelDatosExtra.Size = new System.Drawing.Size(350, 100);
+            this.panelDatosExtra.TabIndex = 9;
             // 
             // Datos_extra
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.paneldatosextra);
+            this.ClientSize = new System.Drawing.Size(600, 470);
+            this.Controls.Add(this.panelDatosExtra);
             this.Controls.Add(this.btnSiguiente);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.Xo);
+            this.Controls.Add(this.lblError);
+            this.Controls.Add(this.lblX0);
             this.Controls.Add(this.txtError);
-            this.Controls.Add(this.txtXi);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.btneditar);
-            this.Controls.Add(this.btnerror);
-            this.Controls.Add(this.btninsertarxo);
+            this.Controls.Add(this.txtX0);
+            this.Controls.Add(this.btnRegresar);
+            this.Controls.Add(this.btnEditar);
+            this.Controls.Add(this.btnBorrar);
+            this.Controls.Add(this.btnInsertarX0);
             this.Name = "Datos_extra";
-            this.Text = "Datos_extra";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Datos Iniciales - Newton-Raphson";
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
 
         #endregion
 
-        private System.Windows.Forms.Button btninsertarxo;
-        private System.Windows.Forms.Button btnerror;
-        private System.Windows.Forms.Button btneditar;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.TextBox txtXi;
+        private System.Windows.Forms.Button btnInsertarX0;
+        private System.Windows.Forms.Button btnBorrar;
+        private System.Windows.Forms.Button btnEditar;
+        private System.Windows.Forms.Button btnRegresar;
+        private System.Windows.Forms.TextBox txtX0;
         private System.Windows.Forms.TextBox txtError;
-        private System.Windows.Forms.Label Xo;
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblX0;
+        private System.Windows.Forms.Label lblError;
         private System.Windows.Forms.Button btnSiguiente;
-        private System.Windows.Forms.Panel paneldatosextra;
+        private System.Windows.Forms.Panel panelDatosExtra;
     }
 }

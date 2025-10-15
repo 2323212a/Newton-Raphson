@@ -6,7 +6,8 @@ namespace Newton_Raphson
 {
     public partial class Form1 : Form
     {
-        private string funcionPotenciaCuarta = null;
+        private string funcionPotenciaCuarta = null;   // Para evaluar (ej: "3*x^4 - 2*x^3 + 1")
+        private string funcionParaMostrar = null;      // Para mostrar con potencias unicode (ej: "3x⁴ - 2x³ + 1")
 
         public Form1()
         {
@@ -18,7 +19,6 @@ namespace Newton_Raphson
 
         private void btninsertar_Click_1(object sender, EventArgs e)
         {
-            // Obtener coeficientes con su índice de grado
             var coeficientes = new Dictionary<int, string>
             {
                 { 4, textBox1.Text.Trim() },
@@ -29,7 +29,8 @@ namespace Newton_Raphson
             };
 
             bool hayAlMenosUnCoeficiente = false;
-            List<string> partesFuncion = new List<string>();
+            List<string> partesFuncionMostrar = new List<string>();
+            List<string> partesFuncionEvaluar = new List<string>();
 
             foreach (var kvp in coeficientes)
             {
@@ -46,9 +47,13 @@ namespace Newton_Raphson
                         return;
                     }
 
-                    string termino = ConstruirTermino(valorNumerico, grado, partesFuncion.Count == 0);
-                    if (!string.IsNullOrEmpty(termino))
-                        partesFuncion.Add(termino);
+                    string terminoMostrar = ConstruirTerminoParaMostrar(valorNumerico, grado, partesFuncionMostrar.Count == 0);
+                    if (!string.IsNullOrEmpty(terminoMostrar))
+                        partesFuncionMostrar.Add(terminoMostrar);
+
+                    string terminoEvaluar = ConstruirTerminoParaEvaluar(valorNumerico, grado, partesFuncionEvaluar.Count == 0);
+                    if (!string.IsNullOrEmpty(terminoEvaluar))
+                        partesFuncionEvaluar.Add(terminoEvaluar);
                 }
             }
 
@@ -58,20 +63,21 @@ namespace Newton_Raphson
                 return;
             }
 
-            funcionPotenciaCuarta = string.Join(" ", partesFuncion);
+            funcionParaMostrar = string.Join(" ", partesFuncionMostrar);
+            funcionPotenciaCuarta = string.Join(" ", partesFuncionEvaluar);
 
-            // Mostrar la función
+            // Mostrar la función bonita
             Panelpreedicion.Controls.Clear();
             var lblFuncion = new Label
             {
-                Text = funcionPotenciaCuarta,
+                Text = funcionParaMostrar,
                 AutoSize = true,
                 Font = new System.Drawing.Font("Segoe UI", 12)
             };
             Panelpreedicion.Controls.Add(lblFuncion);
             Panelpreedicion.Visible = true;
 
-            // Desactivar textboxes
+            // Bloquear textboxes
             BloquearTextBoxes();
 
             // Activar botones
@@ -79,8 +85,7 @@ namespace Newton_Raphson
             btnsiguiente.Enabled = true;
         }
 
-        // Construcción de términos con potencias unicode y sin "+" inicial
-        private string ConstruirTermino(double coef, int grado, bool esPrimerTermino)
+        private string ConstruirTerminoParaMostrar(double coef, int grado, bool esPrimerTermino)
         {
             if (coef == 0) return string.Empty;
 
@@ -90,31 +95,40 @@ namespace Newton_Raphson
             string coefStr = (valorAbs == 1 && grado != 0) ? "" : valorAbs.ToString();
 
             string potenciaUnicode = "";
+            if (grado == 4)
+                potenciaUnicode = "x⁴";
+            else if (grado == 3)
+                potenciaUnicode = "x³";
+            else if (grado == 2)
+                potenciaUnicode = "x²";
+            else if (grado == 1)
+                potenciaUnicode = "x";
+            else if (grado == 0)
+                potenciaUnicode = "";
+            else
+                potenciaUnicode = "x^" + grado;
 
-            switch (grado)
-            {
-                case 4:
-                    potenciaUnicode = "x⁴";
-                    break;
-                case 3:
-                    potenciaUnicode = "x³";
-                    break;
-                case 2:
-                    potenciaUnicode = "x²";
-                    break;
-                case 1:
-                    potenciaUnicode = "x";
-                    break;
-                case 0:
-                    potenciaUnicode = "";
-                    break;
-                default:
-                    potenciaUnicode = $"x^{grado}";
-                    break;
-            }
+            return (signo + " " + coefStr + potenciaUnicode).Trim();
+        }
 
+        private string ConstruirTerminoParaEvaluar(double coef, int grado, bool esPrimerTermino)
+        {
+            if (coef == 0) return string.Empty;
 
-            return $"{signo} {coefStr}{potenciaUnicode}".Trim();
+            string signo = coef > 0 ? (esPrimerTermino ? "" : "+") : "-";
+            double valorAbs = Math.Abs(coef);
+
+            string coefStr = (valorAbs == 1 && grado != 0) ? "" : valorAbs.ToString();
+
+            string potencia = "";
+            if (grado == 0)
+                potencia = "";
+            else if (grado == 1)
+                potencia = "x";
+            else
+                potencia = "x^" + grado;
+
+            return (signo + " " + coefStr + potencia).Trim();
         }
 
         private void btnEditar_Click(object sender, EventArgs e)
@@ -126,6 +140,7 @@ namespace Newton_Raphson
         private void btnborrar_Click_1(object sender, EventArgs e)
         {
             funcionPotenciaCuarta = null;
+            funcionParaMostrar = null;
             Panelpreedicion.Controls.Clear();
             Panelpreedicion.Visible = false;
 
@@ -159,11 +174,9 @@ namespace Newton_Raphson
 
             Datos_extra siguiente = new Datos_extra(funcionPotenciaCuarta);
             siguiente.Show();
-
-
+            this.Hide();  // Ocultar para poder volver más tarde
         }
 
-        // Métodos de bloqueo/desbloqueo
         private void BloquearTextBoxes()
         {
             textBox1.Enabled = false;

@@ -1,4 +1,6 @@
-﻿namespace Newton_Raphson
+﻿using System;
+
+namespace Newton_Raphson
 {
     partial class Tabla
     {
@@ -23,45 +25,68 @@
         #region Windows Form Designer generated code
 
         /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
+        /// Método requerido para el diseñador. No modificar
+        /// el contenido de este método con el editor de código.
         /// </summary>
         private void InitializeComponent()
         {
-            this.paneltabla = new System.Windows.Forms.Panel();
             this.dataGridNewton = new System.Windows.Forms.DataGridView();
-            this.paneltabla.SuspendLayout();
+            this.btnCerrar = new System.Windows.Forms.Button();
+            this.btnRegresar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridNewton)).BeginInit();
             this.SuspendLayout();
             // 
-            // paneltabla
-            // 
-            this.paneltabla.Controls.Add(this.dataGridNewton);
-            this.paneltabla.Location = new System.Drawing.Point(13, 13);
-            this.paneltabla.Name = "paneltabla";
-            this.paneltabla.Size = new System.Drawing.Size(753, 306);
-            this.paneltabla.TabIndex = 0;
-            // 
             // dataGridNewton
             // 
+            this.dataGridNewton.AllowUserToAddRows = false;
+            this.dataGridNewton.AllowUserToDeleteRows = false;
+            this.dataGridNewton.AllowUserToResizeRows = false;
+            this.dataGridNewton.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridNewton.BackgroundColor = System.Drawing.SystemColors.Window;
             this.dataGridNewton.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridNewton.Location = new System.Drawing.Point(12, 13);
+            this.dataGridNewton.Location = new System.Drawing.Point(30, 30);
             this.dataGridNewton.Name = "dataGridNewton";
+            this.dataGridNewton.ReadOnly = true;
+            this.dataGridNewton.RowHeadersVisible = false;
             this.dataGridNewton.RowHeadersWidth = 51;
-            this.dataGridNewton.RowTemplate.Height = 24;
-            this.dataGridNewton.Size = new System.Drawing.Size(722, 272);
+            this.dataGridNewton.RowTemplate.Height = 28;
+            this.dataGridNewton.Size = new System.Drawing.Size(740, 320);
             this.dataGridNewton.TabIndex = 0;
-            this.dataGridNewton.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridNewton_CellContentClick);
+            // 
+            // btnCerrar
+            // 
+            this.btnCerrar.Location = new System.Drawing.Point(350, 370);
+            this.btnCerrar.Name = "btnCerrar";
+            this.btnCerrar.Size = new System.Drawing.Size(100, 35);
+            this.btnCerrar.TabIndex = 1;
+            this.btnCerrar.Text = "Cerrar";
+            this.btnCerrar.UseVisualStyleBackColor = true;
+            this.btnCerrar.Click += new System.EventHandler(this.btnCerrar_Click);
+            // 
+            // btnRegresar
+            // 
+            this.btnRegresar.Location = new System.Drawing.Point(220, 370);
+            this.btnRegresar.Name = "btnRegresar";
+            this.btnRegresar.Size = new System.Drawing.Size(100, 35);
+            this.btnRegresar.TabIndex = 2;
+            this.btnRegresar.Text = "Regresar";
+            this.btnRegresar.UseVisualStyleBackColor = true;
+            this.btnRegresar.Click += new System.EventHandler(this.btnRegresar_Click);
             // 
             // Tabla
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.paneltabla);
+            this.ClientSize = new System.Drawing.Size(1016, 498);
+            this.Controls.Add(this.btnRegresar);
+            this.Controls.Add(this.btnCerrar);
+            this.Controls.Add(this.dataGridNewton);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Tabla";
-            this.Text = "tabla";
-            this.paneltabla.ResumeLayout(false);
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Método de Newton-Raphson - Iteraciones";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridNewton)).EndInit();
             this.ResumeLayout(false);
 
@@ -69,7 +94,16 @@
 
         #endregion
 
-        private System.Windows.Forms.Panel paneltabla;
         private System.Windows.Forms.DataGridView dataGridNewton;
+        private System.Windows.Forms.Button btnCerrar;
+        private System.Windows.Forms.Button btnRegresar;
+        private void btnRegresar_Click(object sender, EventArgs e)
+        {
+            var formPrincipal = new Form1();
+            formPrincipal.Show();
+            this.Close();
+        }
     }
+
 }
+
